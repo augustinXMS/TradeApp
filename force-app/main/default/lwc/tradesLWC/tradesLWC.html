@@ -1,0 +1,76 @@
+<!-- sldsValidatorIgnore -->
+<template>
+    <lightning-card title="Booked Trades" icon-name="custom:custom63">
+        <lightning-button label="New Trade" slot="actions" onclick={openModal}></lightning-button>
+        <div class="slds-m-around_medium">
+            <template if:true={trades}>
+                <lightning-datatable
+                    key-field="Id"
+                    data={trades}
+                    columns={columns}
+                    onsave={handleSave}>
+                </lightning-datatable>
+            </template>
+        </div>
+    </lightning-card> 
+    <template if:true={isModalOpen}>
+        <!-- Modal/Popup Box LWC starts here -->
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open slds-modal_small">
+            <div class="slds-modal__container">
+                <!-- Modal/Popup Box LWC header here -->
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModal}>
+                        <lightning-icon icon-name="utility:close"
+                            alternative-text="close"
+                            variant="inverse"
+                            size="small" ></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">New Trade</h2>
+                </header>
+                <!-- Modal/Popup Box LWC body starts here -->
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                  <div class="slds-grid slds-wrap slds-grid_align-center">
+                    <div class="slds-col slds-size_4-of-12 slds-m-bottom_large">   
+                            <template if:true={Sell_Currency__cValues.data}>
+                                <lightning-combobox name="progress" label="Sell Currency"
+                                    options={Sell_Currency__cValues.data.values} onchange={handleChangeSellCurrency}>
+                                </lightning-combobox>
+                            </template>
+                    </div>
+                    <div class="slds-col slds-size_1-of-12 slds-m-bottom_large"></div>
+                    <div class="slds-col slds-size_2-of-12 slds-m-bottom_large ">
+                        <lightning-input type="number" name="input4" readonly value={rate} label="Rate"></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-12 slds-m-bottom_large"></div>
+                    <div class="slds-col slds-size_4-of-12 slds-m-bottom_large">
+                            <template if:true={Buy_Currency__cValues.data}>
+                                <lightning-combobox name="progress" label="Buy Currency" 
+                                    options={Buy_Currency__cValues.data.values} onchange={handleChangeBuyCurrency}>
+                                </lightning-combobox>
+                            </template>
+                    </div>
+                    </div>
+                    <br>
+                  <div class="slds-grid slds-wrap slds-grid_align-center">
+                    <div class="slds-col slds-size_4-of-12 slds-m-bottom_xx-large">
+                        <lightning-input type="number" name="seven" value={amountSellAmount} onchange={handleSellAmountChange} disabled={disabledSellAmount} label="Sell Amount" ></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_4-of-12"></div>
+                    <div class="slds-col slds-size_4-of-12 slds-m-bottom_xx-large">
+                        <lightning-input type="number" name="input5" disabled value={amountBuyAmount} label="Buy Amount" ></lightning-input>
+                    </div>
+                    <br>
+                    <br>
+                  </div>
+                </div>
+                <!-- Modal/Popup Box LWC footer starts here -->
+                <footer class="slds-modal__footer">
+                    <button class="slds-button slds-button_neutral slds-float_right" onclick={closeModal} title="Cancel">Cancel</button>
+                    <button class="slds-button slds-button_brand slds-float_left" onclick={submitDetails} title="OK">OK</button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+</template>
