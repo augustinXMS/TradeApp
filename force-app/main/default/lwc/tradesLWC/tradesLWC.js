@@ -31,7 +31,7 @@ export default class TradesLWC extends LightningElement {
     amountBuyAmount;
     errorMessageAmountFlag;
     @track trades;
-    disabledSellAmount=true;
+    disabledSellAmount = true;
 
 
     @wire(getObjectInfo, { objectApiName: TRADE_OBJECT })
@@ -52,7 +52,7 @@ export default class TradesLWC extends LightningElement {
     )
     Buy_Currency__cValues;
 
-    connectedCallback(){
+    connectedCallback() {
         console.log(this.trades);
         getTrades()
             .then(result => {
@@ -74,25 +74,25 @@ export default class TradesLWC extends LightningElement {
     submitDetails() {
         console.log('OK')
         var dateBooked = new Date().toISOString();
-        var fields = {'Buy_Amount__c' : this.amountBuyAmount, 'Buy_Currency__c' : this.valueBuyCurrency, 'Date_Booked__c' : dateBooked, 'Rate__c' : this.rate,'Sell_Amount__c' : this.amountSellAmount, 'Sell_Currency__c' : this.valueSellCurrency};
-       // Record details to pass to create method with api name of Object.
-       var objRecordInput = {'apiName' : 'Trade__c', fields};
+        var fields = { 'Buy_Amount__c': this.amountBuyAmount, 'Buy_Currency__c': this.valueBuyCurrency, 'Date_Booked__c': dateBooked, 'Rate__c': this.rate, 'Sell_Amount__c': this.amountSellAmount, 'Sell_Currency__c': this.valueSellCurrency };
+        // Record details to pass to create method with api name of Object.
+        var objRecordInput = { 'apiName': 'Trade__c', fields };
 
-       // LDS method to create record.
-       createRecord(objRecordInput).then(response => {
-           alert('New Trade Booked ');
-           getTrades()
-            .then(result => {
-                this.trades = result;
-                this.trades=[...this.trades];
-            })
-            .catch(error => {
-                this.error = error;
-            });
-       }).catch(error => {
-           alert('Error: ' +JSON.stringify(error));
-       });        
-       
+        // LDS method to create record.
+        createRecord(objRecordInput).then(response => {
+            alert('New Trade Booked ');
+            getTrades()
+                .then(result => {
+                    this.trades = result;
+                    this.trades = [...this.trades];
+                })
+                .catch(error => {
+                    this.error = error;
+                });
+        }).catch(error => {
+            alert('Error: ' + JSON.stringify(error));
+        });
+
         this.isModalOpen = false;
     }
 
@@ -103,9 +103,9 @@ export default class TradesLWC extends LightningElement {
                 valueSellCurrency: this.valueSellCurrency,
                 valueBuyCurrency: this.valueBuyCurrency
             })
-                .then(result => {                   
+                .then(result => {
                     this.rate = result;
-                    this.disabledSellAmount=false;
+                    this.disabledSellAmount = false;
                 })
                 .catch(error => {
                     const evt = new ShowToastEvent({
@@ -127,7 +127,7 @@ export default class TradesLWC extends LightningElement {
             })
                 .then(result => {
                     this.rate = result;
-                    this.disabledSellAmount=false;
+                    this.disabledSellAmount = false;
                 })
                 .catch(error => {
                     const evt = new ShowToastEvent({
@@ -140,9 +140,9 @@ export default class TradesLWC extends LightningElement {
                 });
         }
     }
-    handleSellAmountChange(event){
-    this.amountSellAmount = event.target.value;
-    this.amountBuyAmount = this.amountSellAmount * this.rate;
+    handleSellAmountChange(event) {
+        this.amountSellAmount = event.target.value;
+        this.amountBuyAmount = this.amountSellAmount * this.rate;
 
     }
 
