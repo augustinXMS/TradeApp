@@ -1,5 +1,6 @@
 # Salesforce Trade App Project
-run ./setupProject.sh
+<p>run ./setupProject.sh</p>
 
-1.Go to App Launcher
-2.Search for Trade App
+<p>1.Go to fixer.io (create account and get the API Access Key)</p>
+<p>2.Paste the Access Key in TradesController.makeGetCallout </p>
+<p>3.Go to App Launcher and search for TradeApp</p>

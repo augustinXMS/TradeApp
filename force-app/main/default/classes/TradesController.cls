@@ -12,7 +12,7 @@ public without sharing class TradesController{
         HttpRequest request = new HttpRequest();
         String Url = 'http://data.fixer.io/api/';
         String endpoint = 'latest';
-        String access_key = 'a4d185605657542cc0ab809df043b9d9';
+        String access_key;
         request.setEndpoint(Url + endpoint + '?access_key=' + access_key + '&base=' + valueSellCurrency + '&symbols=' + valueBuyCurrency);
         request.setMethod('GET');
         HttpResponse response = http.send(request);
